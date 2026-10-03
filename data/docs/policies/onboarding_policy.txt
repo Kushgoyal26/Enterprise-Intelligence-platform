@@ -1,0 +1,12 @@
+CUSTOMER ONBOARDING POLICY
+
+1. Starter plan customers receive self-service onboarding with access to
+   documentation, video tutorials, and community support forums.
+2. Growth plan customers are assigned an onboarding specialist for the first
+   30 days, including a kickoff call and two check-in sessions.
+3. Enterprise plan customers receive a dedicated implementation team, a
+   custom onboarding plan, and a target time-to-first-value of 21 days.
+4. All new customers receive access to a sandbox environment for testing
+   before going live in production.
+5. Onboarding is considered complete when the customer has successfully
+   integrated at least one core workflow and completed platform training.

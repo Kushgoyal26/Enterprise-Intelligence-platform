@@ -1,0 +1,19 @@
+FINAL BUG FIX PATCH (before GitHub push)
+======================
+
+Copy these INTO your existing enterprise-intel-step2/enterprise-intel folder,
+REPLACING the existing files:
+
+  backend/requirements.txt       -> backend/           (REPLACE — removed a duplicate line)
+  backend/agents/synthesis.py    -> backend/agents/     (REPLACE — now always explains WHY
+                                                          a customer is high churn risk,
+                                                          not just the percentage)
+
+No new pip installs needed.
+
+TO TEST:
+1. Restart backend (Ctrl+C, then re-run):
+     uvicorn backend.api.main:app --reload
+2. Ask: "Which customers are most likely to churn?"
+3. The answer should now mention reasons (e.g. "due to declining login activity")
+   alongside each risk percentage, not just the number.

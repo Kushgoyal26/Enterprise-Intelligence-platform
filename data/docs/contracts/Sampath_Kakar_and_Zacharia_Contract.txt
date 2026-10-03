@@ -1,0 +1,44 @@
+MASTER SUBSCRIPTION AGREEMENT
+
+Contract ID: CTR-0030
+Customer: Sampath, Kakar and Zacharia
+Plan Tier: Starter
+Effective Date: 2024-10-20
+
+1. SERVICES
+The Provider agrees to provide Sampath, Kakar and Zacharia with access to the platform under the
+Starter subscription tier, as further described in the applicable Order Form.
+
+2. PAYMENT TERMS
+Payment is due Net 45 from the date of invoice. Late payments beyond
+15 days past the due date may result in suspension of service access.
+
+3. TERM AND TERMINATION
+This Agreement shall continue in effect via manual renewal requiring mutual written agreement. Either party may
+terminate this Agreement for convenience by providing 60 days'
+written notice to the other party. Either party may terminate immediately
+upon material breach that remains uncured for 30 days after written notice.
+
+4. SERVICE LEVEL AGREEMENT
+Provider commits to a monthly uptime of 99.95%. In the event Provider fails to
+meet this commitment, Customer shall be entitled to service credits as
+described in Exhibit B.
+
+5. LIMITATION OF LIABILITY
+Provider's total liability under this Agreement shall not exceed the total fees paid in the preceding 6 months.
+Neither party shall be liable for indirect, incidental, or consequential damages.
+
+6. CONFIDENTIALITY
+Each party agrees to maintain the confidentiality of the other party's
+proprietary information disclosed under this Agreement for a period of 3 years
+following termination.
+
+7. GOVERNING LAW
+This Agreement shall be governed by the laws of Delaware, USA.
+
+8. DATA PROTECTION
+Provider shall implement reasonable technical and organizational measures to
+protect Customer data and shall not use Customer data for any purpose other
+than providing the Services.
+
+Signed on behalf of Sampath, Kakar and Zacharia and the Provider on 2024-10-20.

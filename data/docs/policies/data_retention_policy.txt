@@ -1,0 +1,13 @@
+DATA RETENTION POLICY
+
+1. Active customer data is retained for the duration of the subscription
+   plus 90 days after cancellation, to allow for reactivation.
+2. After the 90-day grace period, customer data is permanently deleted from
+   production systems within 30 additional days.
+3. Backup copies are retained for a maximum of 180 days for disaster
+   recovery purposes, after which they are purged.
+4. Support ticket records and billing history are retained for 7 years to
+   comply with financial and tax regulations.
+5. Customers may request early data deletion by submitting a formal request
+   to privacy@company.com, which will be honored within 30 days, subject to
+   legal retention requirements.

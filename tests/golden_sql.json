@@ -1,0 +1,82 @@
+[
+  {
+    "question": "How many customers are currently active?",
+    "expected_sql_hint": "SELECT COUNT(*) FROM customers WHERE is_active = true"
+  },
+  {
+    "question": "How many customers have churned?",
+    "expected_sql_hint": "SELECT COUNT(*) FROM customers WHERE is_active = false"
+  },
+  {
+    "question": "What is the total MRR across all customers for the most recent billing month?",
+    "expected_sql_hint": "SELECT SUM(mrr_amount) FROM subscriptions WHERE billing_month = (SELECT MAX(billing_month) FROM subscriptions)"
+  },
+  {
+    "question": "Which region has the most customers?",
+    "expected_sql_hint": "SELECT region, COUNT(*) FROM customers GROUP BY region ORDER BY COUNT(*) DESC LIMIT 1"
+  },
+  {
+    "question": "What is the average MRR by plan tier?",
+    "expected_sql_hint": "SELECT plan_tier, AVG(mrr_amount) FROM subscriptions s JOIN customers c ON c.customer_id = s.customer_id GROUP BY plan_tier"
+  },
+  {
+    "question": "How many support tickets were created with Critical priority?",
+    "expected_sql_hint": "SELECT COUNT(*) FROM support_tickets WHERE priority = 'Critical'"
+  },
+  {
+    "question": "What is the churn rate by region (percentage of customers in each region who churned)?",
+    "expected_sql_hint": "SELECT region, ROUND(100.0 * SUM(CASE WHEN NOT is_active THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_rate FROM customers GROUP BY region"
+  },
+  {
+    "question": "Who are the top 5 account owners by number of customers?",
+    "expected_sql_hint": "SELECT account_owner, COUNT(*) FROM customers GROUP BY account_owner ORDER BY COUNT(*) DESC LIMIT 5"
+  },
+  {
+    "question": "What is the average customer satisfaction score for tickets in the Billing category?",
+    "expected_sql_hint": "SELECT AVG(satisfaction_score) FROM support_tickets WHERE category = 'Billing'"
+  },
+  {
+    "question": "How many payments were flagged as anomalies?",
+    "expected_sql_hint": "SELECT COUNT(*) FROM payments WHERE is_anomaly = true"
+  },
+  {
+    "question": "What is the total revenue (sum of successful payments) by payment method?",
+    "expected_sql_hint": "SELECT payment_method, SUM(amount) FROM payments WHERE status = 'Success' GROUP BY payment_method"
+  },
+  {
+    "question": "Which industry has the highest average employee count?",
+    "expected_sql_hint": "SELECT industry, AVG(employee_count) FROM customers GROUP BY industry ORDER BY AVG(employee_count) DESC LIMIT 1"
+  },
+  {
+    "question": "How many customers signed up in each plan tier?",
+    "expected_sql_hint": "SELECT plan_tier, COUNT(*) FROM customers GROUP BY plan_tier"
+  },
+  {
+    "question": "What is the average resolution time in hours for High priority tickets?",
+    "expected_sql_hint": "SELECT AVG(resolution_hours) FROM support_tickets WHERE priority = 'High'"
+  },
+  {
+    "question": "List the 10 customers with the highest total MRR across all months.",
+    "expected_sql_hint": "SELECT c.company_name, SUM(s.mrr_amount) AS total_mrr FROM subscriptions s JOIN customers c ON c.customer_id = s.customer_id GROUP BY c.company_name ORDER BY total_mrr DESC LIMIT 10"
+  },
+  {
+    "question": "How many failed payments were there in total?",
+    "expected_sql_hint": "SELECT COUNT(*) FROM payments WHERE status = 'Failed'"
+  },
+  {
+    "question": "What percentage of tickets have no satisfaction score recorded?",
+    "expected_sql_hint": "SELECT ROUND(100.0 * SUM(CASE WHEN satisfaction_score IS NULL THEN 1 ELSE 0 END) / COUNT(*), 1) FROM support_tickets"
+  },
+  {
+    "question": "What is the average login count for active vs churned customers?",
+    "expected_sql_hint": "SELECT c.is_active, AVG(s.login_count) FROM subscriptions s JOIN customers c ON c.customer_id = s.customer_id GROUP BY c.is_active"
+  },
+  {
+    "question": "Which plan tier has the highest churn rate?",
+    "expected_sql_hint": "SELECT plan_tier, ROUND(100.0 * SUM(CASE WHEN NOT is_active THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_rate FROM customers GROUP BY plan_tier ORDER BY churn_rate DESC LIMIT 1"
+  },
+  {
+    "question": "How many customers does each account owner currently manage (active customers only)?",
+    "expected_sql_hint": "SELECT account_owner, COUNT(*) FROM customers WHERE is_active = true GROUP BY account_owner"
+  }
+]

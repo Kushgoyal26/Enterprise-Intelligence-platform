@@ -1,0 +1,7 @@
+{
+  "auc": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "n_customers": 500,
+  "n_churned": 97
+}

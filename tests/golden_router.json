@@ -1,0 +1,12 @@
+[
+  {"question": "What is the total MRR across all customers this month?", "expected_sources": ["sql"]},
+  {"question": "How many active customers do we have?", "expected_sources": ["sql"]},
+  {"question": "What is our refund policy for early cancellations?", "expected_sources": ["rag"]},
+  {"question": "How long do we retain customer data after cancellation?", "expected_sources": ["rag"]},
+  {"question": "What is our support response time SLA for critical tickets?", "expected_sources": ["rag"]},
+  {"question": "Which customers are most likely to churn in the near future?", "expected_sources": ["ml"]},
+  {"question": "Give me the churn risk and current MRR for our top at-risk customers.", "expected_sources": ["sql", "ml"]},
+  {"question": "What is the average support satisfaction score by ticket category?", "expected_sources": ["sql"]},
+  {"question": "Do we undergo any third-party security audits?", "expected_sources": ["rag"]},
+  {"question": "Which region has the highest churn rate and what's our onboarding process there?", "expected_sources": ["sql", "rag"]}
+]

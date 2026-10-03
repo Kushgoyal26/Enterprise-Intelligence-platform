@@ -1,0 +1,73 @@
+name: Tests
+
+# Runs automatically on every push and pull request.
+# Spins up a real PostgreSQL instance, loads synthetic data, and runs the
+# Text-to-SQL golden test set to confirm the agent still works correctly.
+#
+# To enable this fully, add GROQ_API_KEY as a repository secret:
+# GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ei_user
+          POSTGRES_PASSWORD: ei_pass
+          POSTGRES_DB: enterprise_intel
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: enterprise_intel
+      DB_USER: ei_user
+      DB_PASSWORD: ei_pass
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r backend/requirements.txt
+          pip install python-dotenv psycopg2-binary
+
+      - name: Syntax-check all Python files
+        run: |
+          python -m py_compile $(find backend data ml tests -name "*.py")
+
+      - name: Generate synthetic data
+        run: python data/generate_data.py
+
+      - name: Load data into PostgreSQL
+        run: python data/load_to_postgres.py
+
+      - name: Run Text-to-SQL golden test set
+        if: ${{ env.GROQ_API_KEY != '' }}
+        run: python tests/run_sql_eval.py
+
+      - name: Skip note (no API key configured)
+        if: ${{ env.GROQ_API_KEY == '' }}
+        run: echo "GROQ_API_KEY secret not set — skipping live agent tests. Syntax checks and data pipeline still verified above."

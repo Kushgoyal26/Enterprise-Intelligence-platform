@@ -1,0 +1,45 @@
+version: "3.9"
+
+# Full production stack reference: PostgreSQL + the API, networked together.
+# (Earlier in this project you ran PostgreSQL natively instead of via Docker
+# due to a virtualization issue — that's completely fine for local dev. This
+# file documents how the full stack would run together in production, where
+# Docker is typically available.)
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: ei_postgres
+    environment:
+      POSTGRES_USER: ei_user
+      POSTGRES_PASSWORD: ei_pass
+      POSTGRES_DB: enterprise_intel
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ei_user -d enterprise_intel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: ei_api
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: enterprise_intel
+      DB_USER: ei_user
+      DB_PASSWORD: ei_pass
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      API_KEY: ${API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

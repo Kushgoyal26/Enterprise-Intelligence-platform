@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is the refund policy for customers who cancel within 14 days of signup?",
+    "expected_source": "refund_policy.txt"
+  },
+  {
+    "question": "How long is customer data retained after a subscription is cancelled?",
+    "expected_source": "data_retention_policy.txt"
+  },
+  {
+    "question": "What is the support response time for a Critical priority ticket on the Enterprise plan?",
+    "expected_source": "support_sla_policy.txt"
+  },
+  {
+    "question": "How is customer data encrypted, both at rest and in transit?",
+    "expected_source": "security_compliance_policy.txt"
+  },
+  {
+    "question": "What is the target time-to-first-value for Enterprise customer onboarding?",
+    "expected_source": "onboarding_policy.txt"
+  },
+  {
+    "question": "What happens if a customer's payment fails? How many retry attempts are made?",
+    "expected_source": "billing_and_invoicing_policy.txt"
+  },
+  {
+    "question": "Does the platform undergo any third-party security audits?",
+    "expected_source": "security_compliance_policy.txt"
+  },
+  {
+    "question": "What is the early termination processing fee for annual plan customers who cancel?",
+    "expected_source": "refund_policy.txt"
+  },
+  {
+    "question": "How often is security awareness training required for employees?",
+    "expected_source": "security_compliance_policy.txt"
+  },
+  {
+    "question": "What support does a Starter plan customer get during onboarding?",
+    "expected_source": "onboarding_policy.txt"
+  }
+]

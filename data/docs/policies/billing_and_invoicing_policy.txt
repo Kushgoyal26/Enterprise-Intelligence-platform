@@ -1,0 +1,14 @@
+BILLING AND INVOICING POLICY
+
+1. Subscriptions are billed monthly or annually in advance, based on the
+   plan selected at signup.
+2. Invoices are generated on the first business day of each billing cycle
+   and sent to the billing contact on file.
+3. Failed payments trigger up to 3 automatic retry attempts over 7 days.
+   If payment continues to fail, the account is downgraded to read-only
+   access until payment is received.
+4. Mid-cycle plan upgrades are billed on a prorated basis immediately.
+   Downgrades take effect at the start of the next billing cycle.
+5. All prices are in INR unless otherwise specified in a custom Enterprise
+   agreement. Applicable taxes are added at checkout based on the billing
+   address on file.

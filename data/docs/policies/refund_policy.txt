@@ -1,0 +1,14 @@
+REFUND POLICY
+
+Effective for all subscription plans (Starter, Growth, Enterprise).
+
+1. Customers may request a full refund within 14 days of initial signup if
+   they have not exceeded 100 API calls or 5 active user seats.
+2. After the 14-day window, subscriptions are non-refundable for the current
+   billing period, but customers may cancel to prevent future charges.
+3. Annual plan customers who cancel after 30 days receive a prorated refund
+   for unused months, minus a 10% early termination processing fee.
+4. Refunds are processed within 7-10 business days to the original payment
+   method.
+5. Refunds are not issued for add-on services, custom integrations, or
+   professional services engagements once work has commenced.

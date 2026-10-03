@@ -1,0 +1,14 @@
+SECURITY AND COMPLIANCE POLICY
+
+1. All customer data is encrypted at rest using AES-256 and in transit using
+   TLS 1.2 or higher.
+2. The platform undergoes an annual SOC 2 Type II audit, with reports
+   available to Enterprise customers under NDA.
+3. Access to production systems requires multi-factor authentication and is
+   logged and reviewed quarterly.
+4. Security incidents affecting customer data will be disclosed to affected
+   customers within 72 hours of confirmed detection, in line with applicable
+   data protection regulations.
+5. Penetration testing is conducted by a third-party firm twice per year.
+6. Employees undergo mandatory security awareness training upon hire and
+   annually thereafter.

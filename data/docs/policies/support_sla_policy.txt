@@ -1,0 +1,25 @@
+SUPPORT SLA POLICY
+
+Response time commitments by ticket priority and plan tier:
+
+Starter Plan:
+  - Critical: 8 business hours
+  - High: 1 business day
+  - Medium: 2 business days
+  - Low: 3 business days
+
+Growth Plan:
+  - Critical: 4 business hours
+  - High: 8 business hours
+  - Medium: 1 business day
+  - Low: 2 business days
+
+Enterprise Plan:
+  - Critical: 1 hour, 24/7
+  - High: 4 hours, 24/7
+  - Medium: 1 business day
+  - Low: 2 business days
+
+Enterprise customers are assigned a dedicated Customer Success Manager and
+receive quarterly business reviews. Critical priority is defined as a
+complete service outage or data loss event affecting production usage.
