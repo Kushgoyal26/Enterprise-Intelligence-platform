@@ -1,30 +1,17 @@
-PATCH: Fix Render out-of-memory error (switch to lightweight embeddings)
+PATCH: Fix numpy/shap version conflict on Render
 ======================
 
-Copy these INTO your existing enterprise-intel-step2/enterprise-intel folder,
-REPLACING the existing files:
+Copy this INTO your existing enterprise-intel-step2/enterprise-intel folder,
+REPLACING the existing file:
 
-  backend/agents/rag_agent.py     -> backend/agents/
-  backend/requirements.txt        -> backend/
+  backend/requirements.txt    -> backend/
 
-STEPS (in order):
+Locally, update numpy too (so your local setup matches what gets deployed):
+     pip install numpy==1.26.4
 
-1. Install the new package locally:
-     pip install fastembed
-
-2. Rebuild your local vector database with the new (lighter) embedding model
-   — this is required because the new model produces different vectors than
-   the old one:
-     python backend/agents/rag_agent.py ingest
-
-3. Test it still works locally:
-     python backend/agents/rag_agent.py
-
-4. Push everything to GitHub:
+Then push:
      git add .
-     git commit -m "Switch to fastembed to fix Render memory limit"
+     git commit -m "Pin numpy version to fix shap import error on Render"
      git push
 
-5. On Render: go to your service -> "Manual Deploy" -> "Deploy latest commit"
-
-This should fix the "Out of memory (used over 512Mi)" error from before.
+Then on Render: "Manual Deploy" -> "Deploy latest commit"
