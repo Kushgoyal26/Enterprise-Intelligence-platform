@@ -24,9 +24,9 @@ COPY . .
 
 EXPOSE 8000
 
-# a basic healthcheck so an orchestrator (Docker Compose, Kubernetes, etc.)
-# can tell if the API is actually serving traffic
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
-  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/')" || exit 1
+# Render (and most cloud hosts) assign a dynamic port via the $PORT env var
+# at runtime, rather than always using 8000. Default to 8000 for local
+# `docker run` where $PORT isn't set.
+ENV PORT=8000
 
-CMD ["uvicorn", "backend.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn backend.api.main:app --host 0.0.0.0 --port ${PORT}
