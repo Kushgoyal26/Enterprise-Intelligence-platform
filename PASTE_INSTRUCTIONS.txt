@@ -1,19 +1,17 @@
-FINAL BUG FIX PATCH (before GitHub push)
+PATCH: Faster bulk data loading (batch inserts)
 ======================
 
-Copy these INTO your existing enterprise-intel-step2/enterprise-intel folder,
-REPLACING the existing files:
+Copy this file INTO your existing enterprise-intel-step2/enterprise-intel folder,
+REPLACING the existing file:
 
-  backend/requirements.txt       -> backend/           (REPLACE — removed a duplicate line)
-  backend/agents/synthesis.py    -> backend/agents/     (REPLACE — now always explains WHY
-                                                          a customer is high churn risk,
-                                                          not just the percentage)
+  data/load_to_postgres.py    -> data/
 
-No new pip installs needed.
+No new pip installs needed (uses psycopg2.extras, already included).
 
-TO TEST:
-1. Restart backend (Ctrl+C, then re-run):
-     uvicorn backend.api.main:app --reload
-2. Ask: "Which customers are most likely to churn?"
-3. The answer should now mention reasons (e.g. "due to declining login activity")
-   alongside each risk percentage, not just the number.
+TO RUN:
+     python data/load_to_postgres.py
+
+This will be dramatically faster (seconds instead of minutes) since it sends
+all rows in a batch instead of one row at a time. Safe to re-run — the
+schema.sql drops and recreates all tables each time, so it won't duplicate
+the customers that already loaded.

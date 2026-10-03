@@ -43,6 +43,7 @@ DB_CONFIG = dict(
     dbname=os.getenv("DB_NAME", "enterprise_intel"),
     user=os.getenv("DB_USER", "postgres"),
     password=os.getenv("DB_PASSWORD", ""),
+    sslmode=os.getenv("DB_SSLMODE", "prefer"),
 )
 
 ML_DIR = os.path.dirname(os.path.abspath(__file__))
