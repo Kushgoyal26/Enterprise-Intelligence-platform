@@ -1,18 +1,30 @@
-PATCH: Fix Render deployment errors
+PATCH: Fix Render out-of-memory error (switch to lightweight embeddings)
 ======================
 
 Copy these INTO your existing enterprise-intel-step2/enterprise-intel folder,
 REPLACING the existing files:
 
-  Dockerfile                    -> project root     (fixes port binding error)
-  backend/requirements.txt      -> backend/           (fixes 'proxies' TypeError
-                                                         from an httpx version conflict)
+  backend/agents/rag_agent.py     -> backend/agents/
+  backend/requirements.txt        -> backend/
 
-THEN, push to GitHub:
-  git add .
-  git commit -m "Fix Render deployment: port binding and httpx version conflict"
-  git push
+STEPS (in order):
 
-THEN, on Render:
-  Go to your service dashboard -> "Manual Deploy" button (top right) ->
-  "Deploy latest commit". This rebuilds using the fixed files.
+1. Install the new package locally:
+     pip install fastembed
+
+2. Rebuild your local vector database with the new (lighter) embedding model
+   — this is required because the new model produces different vectors than
+   the old one:
+     python backend/agents/rag_agent.py ingest
+
+3. Test it still works locally:
+     python backend/agents/rag_agent.py
+
+4. Push everything to GitHub:
+     git add .
+     git commit -m "Switch to fastembed to fix Render memory limit"
+     git push
+
+5. On Render: go to your service -> "Manual Deploy" -> "Deploy latest commit"
+
+This should fix the "Out of memory (used over 512Mi)" error from before.

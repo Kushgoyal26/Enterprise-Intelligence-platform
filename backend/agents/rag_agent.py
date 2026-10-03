@@ -8,8 +8,13 @@ with citations.
 
 Why local embeddings instead of an API?
   - No extra API key, no rate limits, works offline after the model downloads.
-  - sentence-transformers' all-MiniLM-L6-v2 is small (~80MB) and good enough
-    for this scale of document set.
+
+Why fastembed instead of sentence-transformers?
+  - sentence-transformers pulls in full PyTorch, which alone uses 300-400MB+
+    of RAM just to import — too much for a free-tier deployment (e.g. Render's
+    512MB limit). fastembed uses ONNX Runtime instead, giving similar quality
+    embeddings (BAAI/bge-small-en-v1.5, also 384 dimensions) with a much
+    smaller memory footprint. This matters for deployment, not for local use.
 
 Why ChromaDB instead of Qdrant?
   - Runs embedded in Python, no Docker/server needed — one less thing that
@@ -19,7 +24,7 @@ Why ChromaDB instead of Qdrant?
 import os
 import glob
 import chromadb
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -46,9 +51,14 @@ _collection = None
 def get_embedder():
     global _embedder
     if _embedder is None:
-        print("Loading embedding model (first time only, downloads ~80MB)...")
-        _embedder = SentenceTransformer("all-MiniLM-L6-v2")
+        print("Loading embedding model (first time only, downloads ~130MB)...")
+        _embedder = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
     return _embedder
+
+
+def embed_texts(embedder, texts: list[str]) -> list[list[float]]:
+    """fastembed returns a generator of numpy arrays; convert to plain lists for ChromaDB."""
+    return [vec.tolist() for vec in embedder.embed(texts)]
 
 
 def get_collection():
@@ -97,7 +107,7 @@ def ingest_documents():
 
     print(f"Embedding {len(all_chunks)} chunks from {len(all_files)} documents...")
     texts = [c["text"] for c in all_chunks]
-    embeddings = embedder.encode(texts, show_progress_bar=False).tolist()
+    embeddings = embed_texts(embedder, texts)
 
     ids = [f"chunk_{i}" for i in range(len(all_chunks))]
     metadatas = [{"source": c["source"]} for c in all_chunks]
@@ -111,7 +121,7 @@ def retrieve(question: str, top_k: int = TOP_K) -> list[dict]:
     collection = get_collection()
     embedder = get_embedder()
 
-    query_embedding = embedder.encode([question]).tolist()
+    query_embedding = embed_texts(embedder, [question])
     results = collection.query(query_embeddings=query_embedding, n_results=top_k)
 
     chunks = []
